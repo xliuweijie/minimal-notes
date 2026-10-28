@@ -1,10 +1,9 @@
 {
-  "name": "Memos",
-  "short_name": "Memos",
-  "description": "An open-source, self-hosted note-taking tool. Capture thoughts instantly. Own them completely.",
+  "name": "最简笔记",
+  "short_name": "最简笔记",
+  "description": "只管写下来。简单记录，轻松回看。",
   "icons": [
-    { "src": "/android-chrome-192x192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "/android-chrome-512x512.png", "sizes": "512x512", "type": "image/png" }
+    { "src": "/note-logo.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
   ],
   "display": "standalone",
   "scope": "/",
