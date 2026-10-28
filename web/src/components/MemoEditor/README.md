@@ -2,6 +2,8 @@
 
 ## Overview
 
+The minimal-notes presentation shows only the content editor, save/cancel actions, and a read-only audience hint. Focus-mode hosts also offer a close action. Formatting, insert menus, audio recording, and timestamp controls are not mounted. Existing metadata, file paste/drop, draft recovery, and Markdown storage remain compatible.
+
 MemoEditor is a three-layer component. At its core is a single editor — `Editor/`, a CodeMirror 6 "decorated source" editor. It stores the memo as **raw markdown, verbatim** (no parse/serialize round-trip) and styles that source in place with CodeMirror decorations: the markers (`#`, `*`, `` ` ``, list bullets, fences) stay visible but de-emphasized while the styled text leads. There is one editor and one storage format; everything above the editor boundary talks markdown through the `EditorController` contract.
 
 ## Architecture
@@ -109,10 +111,10 @@ Pure TypeScript functions containing business logic. No React hooks, easy to tes
 
 Every instance is one of two things, and `onFocusModeExit` is the switch:
 
-- **Inline** (prop omitted) — the editor sits in page flow (Home composer, memo edit, comments) and owns its presentation. The ＋ menu offers the view toggles: focus mode expands the editor over the page and the formatting toolbar's trailing button minimizes it back in place, while the formatting-toolbar preference governs the normal-mode layout.
-- **Hosted** (prop supplied) — a host presents the editor full-screen and owns that frame; `contexts/GlobalMemoEditorContext.tsx` is the one today. The editor mounts straight into focus mode and exits by calling back to dismiss the host, so the formatting toolbar's trailing button reads as Close rather than minimize. The ＋ menu's view toggles are absent: focus mode is not the editor's to leave, and it already forces the formatting toolbar on.
+- **Inline** (prop omitted) — the editor sits in page flow (Home composer, memo edit, comments), without formatting or view-toggle menus.
+- **Hosted** (prop supplied) — a host presents the editor full-screen and owns that frame; `contexts/GlobalMemoEditorContext.tsx` is the one today. The editor mounts straight into focus mode and offers a plain Close action that calls back to dismiss the host.
 
-Those toggles travel as a single optional `viewToggles` object (`types/components.ts`) down `EditorToolbar` → `InsertMenu`, so they can only appear or disappear together.
+`EditorToolbar` exposes only save/cancel actions and a read-only audience hint. The unused formatting, insert, and audio components remain available for compatibility but are not mounted by `MemoEditor`.
 
 ### Lifecycle hooks
 
