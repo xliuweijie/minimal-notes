@@ -1,6 +1,7 @@
 import { ArrowRightIcon, CompassIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useInstance } from "@/contexts/InstanceContext";
+import { getAppLogo, getAppTitle } from "@/lib/branding";
 import { ROUTES } from "@/router/routes";
 import { InstanceAccessMode } from "@/types/proto/api/v1/instance_service_pb";
 import { useTranslate } from "@/utils/i18n";
@@ -63,8 +64,8 @@ const AuthPageLayout = ({ chip, title, subtitle, hideExplore, children }: Props)
       <div className="w-full grow flex flex-col justify-center items-center">
         <div className="w-90 max-w-full rounded-xl border border-border bg-card p-7 shadow-sm">
           <div className="mb-6 flex items-center gap-2">
-            <img className="h-6 w-auto rounded-full" src={generalSetting.customProfile?.logoUrl || "/logo.webp"} alt="" />
-            <span className="text-sm font-semibold text-foreground">{generalSetting.customProfile?.title || "Memos"}</span>
+            <img className="h-6 w-auto rounded-md" src={getAppLogo(generalSetting.customProfile?.logoUrl)} alt="" />
+            <span className="text-sm font-semibold text-foreground">{getAppTitle(generalSetting.customProfile?.title)}</span>
           </div>
           {chip && <div className="mb-2">{chip}</div>}
           <h1 className="text-lg font-semibold tracking-tight text-foreground">{title}</h1>

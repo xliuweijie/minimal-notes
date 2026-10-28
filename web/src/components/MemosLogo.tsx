@@ -1,4 +1,5 @@
 import { useInstance } from "@/contexts/InstanceContext";
+import { getAppLogo, getAppTitle } from "@/lib/branding";
 import { cn } from "@/lib/utils";
 import UserAvatar from "./UserAvatar";
 
@@ -22,8 +23,8 @@ function MemosLogo(props: Props) {
   const { collapsed, compact, size = "md" } = props;
   const scale = COMPACT_SCALE[size];
   const { generalSetting: instanceGeneralSetting } = useInstance();
-  const title = instanceGeneralSetting.customProfile?.title || "Memos";
-  const avatarUrl = instanceGeneralSetting.customProfile?.logoUrl || "/full-logo.webp";
+  const title = getAppTitle(instanceGeneralSetting.customProfile?.title);
+  const avatarUrl = getAppLogo(instanceGeneralSetting.customProfile?.logoUrl);
 
   return (
     <div className={cn("relative min-w-0 h-auto", props.className)}>

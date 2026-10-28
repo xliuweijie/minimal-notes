@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useInstance } from "@/contexts/InstanceContext";
+import { APP_DESCRIPTION, APP_LOGO, APP_NAME } from "@/lib/branding";
 import { handleError } from "@/lib/error";
 import { buildInstanceSettingName } from "@/lib/resource-names";
 import {
@@ -59,9 +60,9 @@ function UpdateCustomizedProfileDialog({ open, onOpenChange, onSuccess }: Props)
 
   const handleRestoreButtonClick = () => {
     setPartialState({
-      title: "Memos",
-      logoUrl: "/logo.webp",
-      description: "",
+      title: APP_NAME,
+      logoUrl: APP_LOGO,
+      description: APP_DESCRIPTION,
     });
   };
 
