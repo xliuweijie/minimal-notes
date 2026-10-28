@@ -42,7 +42,7 @@ describe("calendar daily snapshot cell", () => {
     // Today's badge is a 22px rounded square that starts on the text axis, not a centred disc.
     expect(screen.getByText("7")).toHaveClass("text-primary-foreground", "bg-primary", "rounded-md", "h-[22px]", "text-ui");
     expect(screen.getByText("7")).not.toHaveClass("size-6", "before:rounded-full");
-    expect(link).toHaveAccessibleName("2 memos in 2026-08-07");
+    expect(link).toHaveAccessibleName("2 notes in 2026-08-07");
     expect(link).toHaveAttribute("href", "/spaces/work/calendar/2026/08/07?filter=test");
     expect(link).toHaveAttribute("aria-current", "page");
     expect(screen.getAllByRole("link")).toHaveLength(1);

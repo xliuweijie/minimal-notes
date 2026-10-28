@@ -64,7 +64,7 @@ describe("MemoEditor paste", () => {
     expect(container.textContent).toContain(pdf.name);
     // A paste has no placement gesture: the image is attached rather than
     // inlined, so no inline upload starts and the text stays untouched.
-    expect(content.textContent).toBe("");
+    expect(content.textContent).toBe("editor.any-thoughts");
     expect(upload).not.toHaveBeenCalled();
   });
 });

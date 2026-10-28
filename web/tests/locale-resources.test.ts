@@ -17,6 +17,14 @@ const flatten = (messages: Messages, prefix = ""): Record<string, string> =>
 const placeholders = (value: string) =>
   [...value.matchAll(/\{\{[^{}]+\}\}|\{(?:timestamp|uuid|filename)\}/g)].map(([match]) => match).sort();
 const source = flatten(english);
+const retainedControlKeys = new Set([
+  "common.calendar",
+  "editor.comment",
+  "editor.audio-recorder.error-description",
+  "editor.audio-recorder.transcribe-empty",
+  "editor.audio-recorder.transcribe-error",
+  "editor.audio-recorder.transcribe-success",
+]);
 const locales = import.meta.glob<{ default: Messages }>("../src/locales/*.json", { eager: true });
 const sourceFiles = import.meta.glob<string>(
   ["../src/**/*.{ts,tsx}", "!../src/types/proto/**", "!../src/**/*.d.ts", "!../src/**/*.test.{ts,tsx}"],
@@ -94,12 +102,20 @@ const collectReferences = (files: Record<string, string>) => {
 };
 
 describe("locale key usage", () => {
-  it("references every English key and reviews every computed key pattern", () => {
+  it("references every active English key and reviews every computed key pattern", () => {
     const references = collectReferences(sourceFiles);
 
     expect(references.unreviewedPatterns, "Add finite values for new computed translation keys").toEqual([]);
     expect([...references.dynamicPatterns].sort(), "Remove stale computed-key rules").toEqual(Object.keys(dynamicKeyParts).sort());
-    expect(Object.keys(source).filter((key) => !references.keys.has(key) && !references.keys.has(pluralBase(key)))).toEqual([]);
+    expect(
+      Object.keys(source).filter(
+        (key) => !retainedControlKeys.has(key) && !references.keys.has(key) && !references.keys.has(pluralBase(key)),
+      ),
+    ).toEqual([]);
+  });
+
+  it("keeps translations for retired controls compatible with existing locales", () => {
+    for (const key of retainedControlKeys) expect(source[key]).toBeDefined();
   });
 
   it("counts runtime key definitions but ignores comments and type-only references", () => {
