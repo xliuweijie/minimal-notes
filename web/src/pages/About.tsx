@@ -1,6 +1,7 @@
 import { ExternalLinkIcon, ScissorsIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useInstance } from "@/contexts/InstanceContext";
+import { APP_DESCRIPTION, APP_NAME, getAppLogo, getAppTitle } from "@/lib/branding";
 import {
   MEMOS_API_DOCUMENTATION_URL,
   MEMOS_DOCUMENTATION_URL,
@@ -12,10 +13,6 @@ import { useTranslate } from "@/utils/i18n";
 
 const GITHUB_COMMIT_URL_PREFIX = "https://github.com/usememos/memos/commit/";
 const GITHUB_RELEASE_URL_PREFIX = "https://github.com/usememos/memos/releases/tag/v";
-
-const DEFAULT_TITLE = "Memos";
-const DEFAULT_TAGLINE = "Capture first. Keep it yours.";
-const DEFAULT_LOGO = "/logo.webp";
 
 const isCommitSha = (commit: string) => /^[0-9a-f]{7,40}$/i.test(commit);
 const isSemver = (version: string) => /^\d+\.\d+\.\d+/.test(version);
@@ -41,10 +38,10 @@ const About = () => {
   const { profile, generalSetting } = useInstance();
 
   const customProfile = generalSetting.customProfile;
-  const instanceTitle = customProfile?.title || DEFAULT_TITLE;
-  const instanceTagline = customProfile?.description || DEFAULT_TAGLINE;
-  const instanceLogo = customProfile?.logoUrl || DEFAULT_LOGO;
-  const isCustomBranded = instanceTitle !== DEFAULT_TITLE;
+  const instanceTitle = getAppTitle(customProfile?.title);
+  const instanceTagline = customProfile?.description || APP_DESCRIPTION;
+  const instanceLogo = getAppLogo(customProfile?.logoUrl);
+  const isCustomBranded = instanceTitle !== APP_NAME;
 
   const hasSemver = isSemver(profile.version);
   const releaseUrl = hasSemver ? `${GITHUB_RELEASE_URL_PREFIX}${profile.version}` : "";
