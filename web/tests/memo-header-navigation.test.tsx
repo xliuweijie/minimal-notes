@@ -22,12 +22,6 @@ vi.mock("@/components/MemoActionMenu", () => ({
   ),
 }));
 
-vi.mock("@/components/MemoReactionListView", () => ({
-  // The header supplies the picker's trigger; the mock renders it with the picker's label.
-  ReactionSelector: ({ trigger }: { trigger: React.ReactElement<{ "aria-label"?: string }> }) =>
-    React.cloneElement(trigger, { "aria-label": "add-reaction" }, "Add reaction"),
-}));
-
 vi.mock("@/components/UserAvatar", () => ({
   default: () => <span>avatar</span>,
 }));
@@ -93,7 +87,7 @@ describe("MemoHeader navigation", () => {
     state.currentUser = undefined;
   });
 
-  it("uses one compact interaction surface for memo header actions", () => {
+  it("keeps memo header actions compact without an emoji picker", () => {
     state.currentUser = { name: "users/alice" };
 
     render(
@@ -102,16 +96,12 @@ describe("MemoHeader navigation", () => {
       </MemoryRouter>,
     );
 
-    const reaction = screen.getByRole("button", { name: "add-reaction" });
     const actions = screen.getByRole("button", { name: "memo-actions" });
     const actionRail = actions.closest('[data-slot="memo-header-actions"]');
 
     expect(actionRail).toHaveClass("items-center", "gap-1");
-    // The header shows the picker only while the card is engaged or the picker is open, and its
-    // trigger is the same 24px quiet square as the other header actions.
-    expect(reaction.parentElement).toHaveClass("sm:group-focus-within:flex", "sm:has-[[data-popup-open]]:flex");
-    expect(reaction).toHaveClass("size-6", "rounded-md", "text-muted-foreground/70");
-    expect(reaction.className).not.toMatch(/border-none|rounded-full|ring-/);
+    expect(actionRail?.querySelectorAll("button")).toHaveLength(1);
+    expect(screen.queryByRole("button", { name: /add-reaction/ })).not.toBeInTheDocument();
   });
 
   it.each([false, true])("uses a keyboard-operable timestamp and preserves origin when showCreator=%s", (showCreator) => {
