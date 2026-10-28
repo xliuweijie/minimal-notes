@@ -81,7 +81,7 @@ const RootLayoutContent = () => {
   return (
     <div
       ref={shellRef}
-      className={cn("w-full bg-background", fullBleed ? "h-dvh overflow-hidden" : "min-h-full")}
+      className={cn("classical-shell w-full bg-background", fullBleed ? "h-dvh overflow-hidden" : "min-h-full")}
       style={{ [SIDEBAR_WIDTH_VAR]: `${sidebarWidth}px` } as CSSProperties}
     >
       {md && (
