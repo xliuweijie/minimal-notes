@@ -1,3 +1,5 @@
+> 历史记录：本文描述上一公开极简版（本机 `91498a9`）的优化。当前默认展示古典版，其侧栏布局与此记录有所不同，请以 [古典版说明](CLASSICAL_VERSION.zh-CN.md) 为准。
+
 # 最简笔记的优化说明
 
 维护与产品优化：[@xliuweijie](https://github.com/xliuweijie)。开发过程中使用 Codex 协助实现。
