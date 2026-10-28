@@ -17,8 +17,7 @@ const flatten = (messages: Messages, prefix = ""): Record<string, string> =>
 const placeholders = (value: string) =>
   [...value.matchAll(/\{\{[^{}]+\}\}|\{(?:timestamp|uuid|filename)\}/g)].map(([match]) => match).sort();
 const source = flatten(english);
-const retainedControlKeys = new Set([
-  "common.calendar",
+const retainedEditorKeys = new Set([
   "editor.comment",
   "editor.audio-recorder.error-description",
   "editor.audio-recorder.transcribe-empty",
@@ -109,13 +108,13 @@ describe("locale key usage", () => {
     expect([...references.dynamicPatterns].sort(), "Remove stale computed-key rules").toEqual(Object.keys(dynamicKeyParts).sort());
     expect(
       Object.keys(source).filter(
-        (key) => !retainedControlKeys.has(key) && !references.keys.has(key) && !references.keys.has(pluralBase(key)),
+        (key) => !retainedEditorKeys.has(key) && !references.keys.has(key) && !references.keys.has(pluralBase(key)),
       ),
     ).toEqual([]);
   });
 
-  it("keeps translations for retired controls compatible with existing locales", () => {
-    for (const key of retainedControlKeys) expect(source[key]).toBeDefined();
+  it("keeps translations for the retired editor controls compatible with existing locales", () => {
+    for (const key of retainedEditorKeys) expect(source[key]).toBeDefined();
   });
 
   it("counts runtime key definitions but ignores comments and type-only references", () => {
