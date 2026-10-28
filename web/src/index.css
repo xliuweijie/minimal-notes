@@ -31,6 +31,12 @@
     @apply bg-background text-foreground;
   }
 
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-serif);
+  }
+
   /* Search hits in memo bodies (CSS Custom Highlight API, registered by useSearchMatchHighlight).
      A translucent wash of the theme's amber keeps the text's own color legible on every theme. */
   ::highlight(memo-search-match) {
@@ -39,6 +45,61 @@
 }
 
 @layer components {
+  .classical-shell,
+  .classical-sidebar {
+    background-image: radial-gradient(color-mix(in oklch, var(--foreground) 5%, transparent) 0.5px, transparent 0.5px);
+    background-size: 5px 5px;
+  }
+
+  .classical-sidebar {
+    box-shadow: inset -5px 0 0 color-mix(in oklch, var(--border) 15%, transparent);
+  }
+
+  .classical-sidebar [data-sidebar-header] {
+    min-height: 4.5rem;
+    border-bottom: 3px double var(--border);
+    margin-inline: 0.75rem;
+    padding-inline: 0.5rem;
+  }
+
+  .classical-sidebar [data-sidebar-label],
+  .classical-sidebar [data-sidebar-header] {
+    font-family: var(--font-serif);
+    letter-spacing: 0.04em;
+  }
+
+  .classical-sidebar footer {
+    border-top-style: double;
+    border-top-width: 3px;
+  }
+
+  .classical-memo,
+  .classical-editor {
+    border-color: var(--border);
+    box-shadow:
+      0 2px 0 color-mix(in oklch, var(--card) 70%, var(--border)),
+      0 5px 16px -10px var(--border);
+  }
+
+  .classical-editor {
+    border-top: 3px double var(--border);
+  }
+
+  .classical-editor .memo-editor-content {
+    font-family: var(--font-serif);
+    line-height: 1.8;
+  }
+
+  .classical-memo [data-memo-content] blockquote {
+    border-inline-start-color: var(--primary);
+    font-style: italic;
+  }
+
+  .classical-memo [data-memo-content] pre,
+  .classical-memo [data-memo-content] code {
+    font-family: var(--font-mono);
+  }
+
   .map-attribution-minimal .leaflet-control-attribution {
     margin: 0 0.25rem 0.25rem 0 !important;
     border-radius: 0.25rem;
