@@ -8,6 +8,7 @@ import { Switch } from "@/components/ui/switch";
 import { identityProviderServiceClient } from "@/connect";
 import { useInstance } from "@/contexts/InstanceContext";
 import useDialog from "@/hooks/useDialog";
+import { getAppTitle } from "@/lib/branding";
 import { IdentityProvider } from "@/types/proto/api/v1/idp_service_pb";
 import {
   InstanceAccessMode,
@@ -117,7 +118,7 @@ const InstanceSection = () => {
     <SettingSection title={t("setting.system.label")}>
       <SettingGroup title={t("common.basic")} description={t("setting.system.basic-description")}>
         <SettingList>
-          <SettingListItem label={t("setting.system.server-name")} description={instanceGeneralSetting.customProfile?.title || "Memos"}>
+          <SettingListItem label={t("setting.system.server-name")} description={getAppTitle(instanceGeneralSetting.customProfile?.title)}>
             <Button variant="outline" onClick={customizeDialog.open}>
               {t("common.edit")}
             </Button>
