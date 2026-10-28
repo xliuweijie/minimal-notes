@@ -5,6 +5,7 @@ import { useInstance } from "./contexts/InstanceContext";
 import useNavigateTo from "./hooks/useNavigateTo";
 import { useUserLocale } from "./hooks/useUserLocale";
 import { useUserTheme } from "./hooks/useUserTheme";
+import { getAppLogo, getAppTitle } from "./lib/branding";
 import { cleanupExpiredOAuthState } from "./utils/oauth";
 
 const App = () => {
@@ -49,13 +50,12 @@ const App = () => {
 
   // Dynamic update metadata with customized profile
   useEffect(() => {
-    if (!instanceGeneralSetting.customProfile) {
-      return;
+    document.title = getAppTitle(instanceGeneralSetting.customProfile?.title);
+    const link = document.querySelector<HTMLLinkElement>("link[rel~='icon']");
+    if (link) {
+      link.href = getAppLogo(instanceGeneralSetting.customProfile?.logoUrl);
+      link.removeAttribute("type");
     }
-
-    document.title = instanceGeneralSetting.customProfile.title;
-    const link = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
-    link.href = instanceGeneralSetting.customProfile.logoUrl || "/logo.webp";
   }, [instanceGeneralSetting.customProfile]);
 
   return (
