@@ -121,8 +121,8 @@
     "link": "链接",
     "manage": "管理",
     "map": "地图",
-    "memo": "备忘录",
-    "memos": "备忘录",
+    "memo": "笔记",
+    "memos": "笔记",
     "month-navigation": "月份导航",
     "more": "更多",
     "name": "名称",
@@ -145,7 +145,7 @@
     "settings": "设置",
     "share": "分享",
     "sign-in": "登录",
-    "sign-in-to-memos": "登录 Memos",
+    "sign-in-to-memos": "登录最简笔记",
     "sign-out": "退出登录",
     "sign-up": "注册",
     "statistics": "统计",
@@ -172,7 +172,7 @@
   },
   "editor": {
     "add-your-comment-here": "请输入您的评论...",
-    "any-thoughts": "此刻的想法...",
+    "any-thoughts": "写下此刻的想法…",
     "exit-focus-mode": "退出聚焦模式",
     "focus-mode": "聚焦模式",
     "formatting-toolbar": "格式工具栏",
@@ -192,7 +192,7 @@
       "link": "链接",
       "more": "更多格式"
     },
-    "new-memo": "新建备忘录",
+    "new-memo": "写笔记",
     "no-changes-detected": "未检测到更改",
     "save": "保存",
     "validation": {
@@ -975,7 +975,7 @@
       "use-emoji": "使用 {{emoji}}"
     },
     "unavailable": "空间不存在或你没有访问权限。",
-    "back-to-memos": "返回 Memos",
+    "back-to-memos": "返回最简笔记",
     "create": "创建空间",
     "create-description": "创建一个供成员共享备忘录的空间。",
     "create-success": "空间已创建",
